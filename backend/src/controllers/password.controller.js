@@ -1,5 +1,7 @@
 
 const PasswordsAdministration = require("../modules/PasswordsAdministration")
+const PasswordEncryption = require("../modules/PasswordEncryption")
+
 
 module.exports = class PasswordController {
 
@@ -18,11 +20,23 @@ module.exports = class PasswordController {
 
         if (id || name) {
             PasswordsAdministration.getSpecificPassword(id, name)
-            .then(data => res.status(200).json(data))
+            // .then(data => res.status(200).json(data))
+            .then(data => {
+                let passw = new Object(data)
+
+                if (passw.length == 0) {
+                    res.status(200).json({ status: false, message: "REGISTER_NOT_FOUND" }) 
+                } else {
+                    const data = PasswordEncryption.decrypt(passw[0].hash)
+                    res.status(200).json({ status: true, passw: data }) 
+                }
+                
+            })
             .catch(error => {
                 console.log(error)
                 res.status(500).json({ error: true, message: "INTERNAL_SERVER_ERROR" })
             })
+            
         } else {
             res.status(500).json({ error: true, message: "MISING_DATA_IN_REQUEST"})
         }

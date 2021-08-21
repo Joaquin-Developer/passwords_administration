@@ -1,0 +1,10 @@
+
+
+
+
+POST http://localhost:5000/api/getSpecificPassword HTTP/1.1
+content-type: application/json
+
+{
+    "id": 1
+}

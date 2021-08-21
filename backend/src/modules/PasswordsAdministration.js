@@ -1,34 +1,36 @@
 
+const { connection, connect, disconnect } = require("../database")
+const HashPassword = require("./HashPassword")
+
 module.exports = class PasswordsAdministration {
 
     static getOnlyAllRegisters = () => {
         try {
-            // connect()
             return new Promise((resolve, reject) => {
-                // const query = "select * from Passwords"
-                // connection.query(query, (error, rows, fields) => {
-                //     if (error) return reject(error)
-                //     return resolve(rows)
-                // })
-                return resolve({ data: true })
+                const query = `select IdRegistration, NameRegistration, domian, RegistrationIsActive
+                    from PasswordRegistration`
+
+                connection.query(query, (error, rows, fields) => {
+                    if (error) return reject(error)
+                    return resolve(rows)
+                })
             })
-            // disconnect()
         } catch (error) { return error }
     }
-
-    static getSpecificPassword = () => {
-
-    }
-
-    static newPasswordRegister = () => {
+    
+    static getSpecificPassword = (id, name) => {
 
     }
 
-    static updatePassword = () => {
+    static newPasswordRegister = (nameRegistration, domian, password) => {
 
     }
 
-    static deletePasswordRegister = () => {
+    static updatePassword = (id, name, newPassword) => {
+
+    }
+
+    static deletePasswordRegister = (id, name) => {
 
     }
 

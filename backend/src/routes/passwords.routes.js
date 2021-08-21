@@ -4,7 +4,8 @@ const controller = require("../controllers/password.controller")
 
 router.get("/getAll", controller.getAll)
 router.get("/getSpecificPassword", controller.getSpecificPassword)
-router.post("/updatePassword", controller.updatePassword) 
+router.post("/updatePassword", controller.updatePassword)
+router.post("/newPasswordRegister", controller.newPasswordRegister)
 router.delete("/deletePasswordRegister", controller.deletePasswordRegister)
 
 module.exports = router

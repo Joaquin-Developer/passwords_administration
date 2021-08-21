@@ -1,7 +1,7 @@
 
 module.exports = class PasswordsAdministration {
 
-    static getAll = () => {
+    static getOnlyAllRegisters = () => {
         try {
             // connect()
             return new Promise((resolve, reject) => {
@@ -14,6 +14,22 @@ module.exports = class PasswordsAdministration {
             })
             // disconnect()
         } catch (error) { return error }
+    }
+
+    static getSpecificPassword = () => {
+
+    }
+
+    static newPasswordRegister = () => {
+
+    }
+
+    static updatePassword = () => {
+
+    }
+
+    static deletePasswordRegister = () => {
+
     }
 
     

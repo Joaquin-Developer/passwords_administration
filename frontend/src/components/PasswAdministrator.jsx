@@ -32,13 +32,27 @@ const PasswAdministrator = () => {
     return (
         <div class="container main">
             <h2>Mis contraseñas</h2>
-
-            {list.map(item => (
-                <div key={item.IdRegistration}>
-                    <p>{item.NameRegistration}</p>
-                    <p>{item.domian}</p>
-                </div>
-            ))}
+            <hr />
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Dominio</th>
+                        <th scope="col">Contraseña</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {list.map(item => (
+                    <tr class="table-active tr-registers" key={item.IdRegistration}>
+                        <td>{item.NameRegistration}</td>
+                        <td>{item.domian}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-dark">Ver</button>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
         </div>
     );
 }

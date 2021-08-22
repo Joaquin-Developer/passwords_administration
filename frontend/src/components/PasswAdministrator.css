@@ -1,3 +1,9 @@
 .main {
     margin-block-start: 20px;
 }
+
+/* .tr-registers { */
+table {    
+    text-align: center;
+    align-items: center;
+}

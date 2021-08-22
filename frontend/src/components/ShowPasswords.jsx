@@ -1,6 +1,6 @@
 import React, { useState, useEffect }  /*, { Component }*/ from 'react'
-import "./PasswAdministrator.css";
-import { getOnlyAllRegisters } from "../utils/api";
+import "./ShowPasswords.css";
+import { getOnlyAllRegisters, getSpecificPassword } from "../utils/api";
 
 // export default class PasswAdministrator extends Component {
 
@@ -16,19 +16,37 @@ import { getOnlyAllRegisters } from "../utils/api";
 //     }
 // }
 
-const PasswAdministrator = () => {
+const ShowPasswords = () => {
     
     const [list, setList] = useState([]);
 
+
     useEffect(() => {
         getOnlyAllRegisters()
-        .then(resp => {
-            console.log(resp.data);
-            setList(resp.data);
+        .then(resp => setList(resp.data))
+        .catch(error => {
+            console.error(error);
+            alert("Error al obtener los datos del servidor");
         })
-        .catch(error => console.log(error))
     }, [setList]);
-    
+
+    /**
+     * @param {*} evt 
+     * Este evento se puede mejorar!
+     */
+    const handleClick_showPassword = async (evt) => {
+        evt.preventDefault();
+        let idRegister = evt.target.parentNode.parentNode.id;
+        try {
+            const passw = await getSpecificPassword(parseInt(idRegister));
+            alert(`La contraseña es: ${passw}`);
+
+        } catch (error) {
+            alert(error.message);
+        }
+        
+    }
+
     return (
         <div class="container main">
             <h2>Mis contraseñas</h2>
@@ -43,11 +61,17 @@ const PasswAdministrator = () => {
                 </thead>
                 <tbody>
                 {list.map(item => (
-                    <tr class="table-active tr-registers" key={item.IdRegistration}>
+                    <tr class="table-active tr-registers" 
+                    id={item.IdRegistration} key={item.IdRegistration} 
+                    >
                         <td>{item.NameRegistration}</td>
                         <td>{item.domian}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-dark">Ver</button>
+                            <button type="button" 
+                            class="btn btn-sm btn-outline-dark"
+                            onClick={ handleClick_showPassword }>
+                                Ver
+                            </button>
                         </td>
                     </tr>
                 ))}
@@ -57,6 +81,6 @@ const PasswAdministrator = () => {
     );
 }
 
-export default PasswAdministrator;
+export default ShowPasswords;
 
 

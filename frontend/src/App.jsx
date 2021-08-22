@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import './App.css';
 import Nav from "./components/Nav";
-import PasswAdministrator from './components/PasswAdministrator';
+import ShowPasswords from './components/ShowPasswords';
 
 const App = () => {
     return (
         <Fragment>
             <Nav />
-            <PasswAdministrator></PasswAdministrator>
+            <ShowPasswords></ShowPasswords>
         </Fragment>
     );
 }

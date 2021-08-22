@@ -2,7 +2,6 @@
 const PasswordsAdministration = require("../modules/PasswordsAdministration")
 const PasswordEncryption = require("../modules/PasswordEncryption")
 
-
 module.exports = class PasswordController {
 
     static getOnlyAllRegisters = async (req, res) => {
@@ -45,19 +44,17 @@ module.exports = class PasswordController {
 
     static newPasswordRegister = (req, res) => {
         let { nameRegistration, domian, password } = req.body
+        
+        if (nameRegistration && domian && password) {
             PasswordsAdministration.newPasswordRegister(nameRegistration, domian, password)
-            .then(data => res.status(200).json(data))
+            .then(data => res.status(200).json({ status: true, message: "OK" }))
             .catch(error => {
                 console.log(error)
                 res.status(500).json({ error: true, message: "INTERNAL_SERVER_ERROR" })
             })
-
-        if (nameRegistration && domian && password) {
-
         } else {
             res.status(500).json({ error: true, message: "MISING_DATA_IN_REQUEST"})
         }
-
     }
 
     static updatePassword = (req, res) => {
@@ -80,7 +77,7 @@ module.exports = class PasswordController {
 
         if (id || name) {
             PasswordsAdministration.deletePasswordRegister(id, name)
-            .then(data => res.status(200).json(data))
+            .then(data => res.status(200).json({ status: true, message: "OK" }))
             .catch(error => {
                 console.log(error)
                 res.status(500).json({ error: true, message: "INTERNAL_SERVER_ERROR" })
